@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Крестики</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            margin: auto;
+        }
+        td {
+            border: 3px solid black;
+            width: 50px;
+            height: 50px;
+        }
+        td:hover{
+            background-image: url(kur.jpg);
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <tr> <td clas="kl" onclick="play(0)" id="0">   </td> <td clas="kl" onclick="play(1)" id="1">   </td><td clas="kl" onclick="play(2)" id="2"></td> </tr>
+        <tr> <td clas="kl" onclick="play(3)" id="3">   </td> <td clas="kl" onclick="play(4)" id="4">   </td><td clas="kl" onclick="play(5)" id="5"></td> </tr>
+        <tr> <td clas="kl" onclick="play(6)" id="6">   </td> <td clas="kl" onclick="play(7)" id="7">   </td><td clas="kl" onclick="play(8)" id="8"></td> </tr>
+    </table>
+    <script>
+        var t0 = document.getElementById("0");
+        var t1 = document.getElementById("1");
+        var t2 = document.getElementById("2");
+        var t3 = document.getElementById("3");
+        var t4 = document.getElementById("4");
+        var t5 = document.getElementById("5");
+        var t6 = document.getElementById("6");
+        var t7 = document.getElementById("7");
+        var t8 = document.getElementById("8");
+
+         function ooo(i){
+          if (i === 0) return t0.innerHTML = "O";
+          if (i === 1) return t1.innerHTML = "O";
+          if (i === 2) return t2.innerHTML = "O";
+          if (i === 3) return t3.innerHTML = "O";
+          if (i === 4) return t4.innerHTML = "O";
+          if (i === 5) return t5.innerHTML = "O";
+          if (i === 6) return t6.innerHTML = "O";
+          if (i === 7) return t7.innerHTML = "O";
+          if (i === 8) return t8.innerHTML = "O";
+        }
+        function xxx(i){
+          if (i === 0) return t0.innerHTML = "X";
+          if (i === 1) return t1.innerHTML = "X";
+          if (i === 2) return t2.innerHTML = "X";
+          if (i === 3) return t3.innerHTML = "X";
+          if (i === 4) return t4.innerHTML = "X";
+          if (i === 5) return t5.innerHTML = "X";
+          if (i === 6) return t6.innerHTML = "X";
+          if (i === 7) return t7.innerHTML = "X";
+          if (i === 8) return t8.innerHTML = "X";
+        }
+        var kl = document.getElementsByClassName("kl");
+        var a = new Array (8);
+        for (let i = 0; i < 9; ++i) a[i] = 0;
+        console.log(a);
+        var cs = 0; //чтобы можно было поставить 4 раз последний нолик
+        function play(n){
+            //-----------------чисто заполнение-------------------
+            if (!a[n]){            
+                 a[n] = 1;           
+                 if (cs < 4){
+                 while (1){
+                     let pc = Math.round(Math.random() * (8 - 0) + 0);
+                     if (!a[pc]){
+                         a[pc] = 2
+                         break;
+                    }
+                } 
+            }
+                 ++cs;
+                 for (let i = 0; i < 9; ++i){ 
+                     if (a[i] === 1)  ooo(i);
+                     if (a[i] === 2)  xxx(i);
+                 }
+             }
+             console.log(a + "   " + cs);
+             //-------------------выборка победителя------------------------
+             if (cs >= 4){
+             if ((a[0] == 1 && a[3] == 1 && a[6] == 1) || (a[1] == 1 && a[4] == 1 && a[7] == 1) || (a[2] == 1 && a[5] == 1 && a[8] == 1) ||
+             (a[0] == 1 && a[1] == 1 && a[2] == 1) || (a[3] == 1 && a[4] == 1 && a[5] == 1) || (a[6] == 1 && a[7] == 1 && a[8] == 1) ||
+             (a[0] == 1 && a[4] == 1 && a[8] == 1) || (a[2] == 1 && a[4] == 1 && a[6] == 1)){
+                 alert("ПОБЕДА");
+                 for (let i = 0; i < 9; ++i) a[i] = 0 ;
+                 t0.innerHTML = "";
+                 t1.innerHTML = "";
+                 t2.innerHTML = "";
+                 t3.innerHTML = "";
+                 t4.innerHTML = "";
+                 t5.innerHTML = "";
+                 t6.innerHTML = "";
+                 t7.innerHTML = "";
+                 t8.innerHTML = "";
+                 cs = 0;
+             }
+             else{
+                if ((a[0] == 2 && a[3] == 2 && a[6] == 2) || (a[1] == 2 && a[4] == 2 && a[7] == 2) || (a[2] == 2 && a[5] == 2 && a[8] == 2) ||
+             (a[0] == 2 && a[1] == 2 && a[2] == 2) || (a[3] == 2 && a[4] == 2 && a[5] == 2) || (a[6] == 2 && a[7] == 2 && a[8] == 2) ||
+             (a[0] == 2 && a[4] == 2 && a[8] == 2) || (a[2] == 2 && a[4] == 2 && a[6] == 2)){
+                alert("ПОРАЖЕНИЕ");
+                 for (let i = 0; i < 9; ++i) a[i] = 0 ;
+                 t0.innerHTML = "";
+                 t1.innerHTML = "";
+                 t2.innerHTML = "";
+                 t3.innerHTML = "";
+                 t4.innerHTML = "";
+                 t5.innerHTML = "";
+                 t6.innerHTML = "";
+                 t7.innerHTML = "";
+                 t8.innerHTML = "";
+                 cs = 0;
+             }
+             else{ 
+                 if (cs >= 4){
+                 alert("НИЧЬЯ");
+                 for (let i = 0; i < 9; ++i) a[i] = 0 ;
+                 t0.innerHTML = "";
+                 t1.innerHTML = "";
+                 t2.innerHTML = "";
+                 t3.innerHTML = "";
+                 t4.innerHTML = "";
+                 t5.innerHTML = "";
+                 t6.innerHTML = "";
+                 t7.innerHTML = "";
+                 t8.innerHTML = "";
+                 cs = 0;
+                 }
+             }
+             }
+            }
+        }
+    </script>
+</body>
+</html>
